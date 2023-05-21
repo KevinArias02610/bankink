@@ -47,7 +47,9 @@ export class SidebarComponent implements OnInit {
   }
 
   redirect(id: number){
-    this.router.navigate(['/category', id]);
+    this.router.navigate(['/category', id]).then(() => {
+      window.location.reload();
+    });;
   }
 
   redirectHome(){
