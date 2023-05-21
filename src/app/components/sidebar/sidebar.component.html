@@ -10,7 +10,7 @@
           <p>{{ item.price | currency }}</p>
         </div>
         <div class="item-details">
-          <button><i class="icon-remove"></i> quitar</button>
+          <button (click)="deleteProductCart(item.id)"><i class="icon-remove"></i> quitar</button>
         </div>
       </li>
     </ul>

@@ -14,7 +14,7 @@ export class SharedDataService {
   setProduct(product: Products[]) {
     this.countSubject.next(product);
   }
-  getCount() {
+  getProduct() {
     return this.countSubject.asObservable();
   }
 }

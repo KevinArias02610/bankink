@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Products } from 'src/app/interfaces/products.interface';
 import { ProductsService } from 'src/app/services/products.service';
+import { SharedDataService } from 'src/app/services/shared-data.service';
 
 @Component({
   selector: 'app-category',
@@ -24,12 +25,13 @@ export class CategoryComponent implements OnInit {
   public currentIndex = 0;
   public slideInterval: any;
   public filtro: string = '';
+  public category: string = '';
   @Input() searchChanged: EventEmitter<string> = new EventEmitter<string>();
 
   constructor(
-    private route: ActivatedRoute,
     public _productsService: ProductsService,
-    private readonly activatedRoute: ActivatedRoute
+    private readonly activatedRoute: ActivatedRoute,
+    private sharedDataService: SharedDataService
   ) { }
 
   ngOnInit(): void {
@@ -42,7 +44,8 @@ export class CategoryComponent implements OnInit {
     this._productsService.getAllProducts().subscribe((resp: Products[]) =>{
       resp.forEach(element => {
         if(element.category.id == this.id){
-          this.products.push(element)
+          this.products.push(element);
+          this.category = element.category.name;
         }
       });
       this.products2 = this.products
@@ -96,5 +99,9 @@ export class CategoryComponent implements OnInit {
     if(this.filtro == ''){
       this.divideProductosEnPaginas()
     }
+  }
+
+  actualizarCount(product: Products) {
+    this.sharedDataService.setProduct([product]);
   }
 }
