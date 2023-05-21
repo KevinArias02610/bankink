@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faL, fas } from '@fortawesome/free-solid-svg-icons';
-import { fab } from '@fortawesome/free-brands-svg-icons';
 import { ProductsService } from 'src/app/services/products.service';
 import { Products } from 'src/app/interfaces/products.interface';
 import { Category } from 'src/app/interfaces/category.interface';
@@ -19,7 +16,6 @@ export class SidebarComponent implements OnInit {
   public showDropdown: boolean = false;
 
   constructor(public _productsService: ProductsService) {
-    library.add(fas, fab);
   }
 
   ngOnInit(): void {
