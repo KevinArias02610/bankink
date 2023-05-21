@@ -1,0 +1,13 @@
+<app-buscador></app-buscador>
+<br>
+<div class="carousel-container">
+  <div class="carousel">
+    <ng-container *ngFor="let image of products; let i = index">
+      <div class="slide" [class.active]="i === currentIndex">
+        <img [src]="image.images" [alt]="image.title">
+      </div>
+    </ng-container>
+  </div>
+</div>
+<hr>
+<app-products></app-products>

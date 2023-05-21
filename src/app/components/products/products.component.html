@@ -1,0 +1,22 @@
+<div class="card-container">
+  <div class="card" *ngFor="let product of paginatedProducts">
+    <img [src]="product.images" alt="Imagen 1" class="card-image">
+    <div class="card-content">
+      <h3 class="card-title">{{product.title}}</h3>
+      <p class="card-desc">{{product.description}}</p>
+      <p class="card-price">{{product.price | currency}}</p>
+    </div>
+    <button class="add-to-cart-btn">
+      <i class="icon-shopping-cart"></i>Agregar al carrito
+    </button>
+    <button class="see-detail-btn" (click)="openModal(product)">
+      <i class="icon-eye-open"></i> Ver detalle
+    </button>
+  </div>
+</div>
+<div class="pagination">
+  <button class="pagination-btn" (click)="previousPage()" [disabled]="currentPage === 1">Atrás</button>
+  <span>Página {{currentPage}} de {{totalPages}}</span>
+  <button class="pagination-btn" (click)="nextPage()" [disabled]="currentPage === totalPages">Siguiente</button>
+</div>
+<app-product-detail *ngIf="isModalOpen" [selectedElement]="selectedElement" (closeModal2)="closeModal()"></app-product-detail>
