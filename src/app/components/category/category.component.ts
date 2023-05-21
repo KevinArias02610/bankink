@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { Products } from 'src/app/interfaces/products.interface';
 import { ProductsService } from 'src/app/services/products.service';
 
@@ -28,11 +28,12 @@ export class CategoryComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    public _productsService: ProductsService
+    public _productsService: ProductsService,
+    private readonly activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    this.id = parseInt(this.route.snapshot.paramMap.get('id')!);
+    this.activatedRoute.params.subscribe((params: Params) => this.id = params['id']);
     this.getPaginatedProducts();
     this.startSlideShow();
   }
