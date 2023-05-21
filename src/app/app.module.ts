@@ -9,6 +9,8 @@ import { ProductDetailComponent } from './components/product-detail/product-deta
 import { ProductsComponent } from './components/products/products.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { BuscadorComponent } from './components/buscador/buscador.component';
+import { FormsModule } from '@angular/forms';
+import { CategoryComponent } from './components/category/category.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -16,12 +18,14 @@ import { BuscadorComponent } from './components/buscador/buscador.component';
     ProductDetailComponent,
     ProductsComponent,
     SidebarComponent,
-    BuscadorComponent
+    BuscadorComponent,
+    CategoryComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

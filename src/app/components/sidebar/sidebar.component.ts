@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductsService } from 'src/app/services/products.service';
 import { Products } from 'src/app/interfaces/products.interface';
 import { Category } from 'src/app/interfaces/category.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
@@ -15,7 +16,10 @@ export class SidebarComponent implements OnInit {
   public count: number = 0;
   public showDropdown: boolean = false;
 
-  constructor(public _productsService: ProductsService) {
+  constructor(
+    public _productsService: ProductsService,
+    public router: Router
+    ) {
   }
 
   ngOnInit(): void {
@@ -40,6 +44,14 @@ export class SidebarComponent implements OnInit {
 
   toggleDropdown() {
     this.showDropdown = !this.showDropdown;
+  }
+
+  redirect(id: number){
+    this.router.navigate(['/category', id]);
+  }
+
+  redirectHome(){
+    this.router.navigate(['/home']);
   }
   
 }

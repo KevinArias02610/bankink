@@ -1,3 +1,16 @@
+
+<app-buscador (searchChanged)="onSearchChanged($event)"></app-buscador>
+<br>
+<div class="carousel-container">
+  <div class="carousel">
+    <ng-container *ngFor="let image of products2; let i = index">
+      <div class="slide" [class.active]="i === currentIndex">
+        <img [src]="image.images" [alt]="image.title">
+      </div>
+    </ng-container>
+  </div>
+</div>
+<hr>
 <div class="card-container">
   <div class="card" *ngFor="let product of paginatedProducts">
     <img [src]="product.images" alt="Imagen 1" class="card-image">
@@ -14,7 +27,8 @@
     </button>
   </div>
 </div>
-<div class="pagination">
+<p *ngIf="paginatedProducts.length === 0">No se encontraron resultados.</p>
+<div class="pagination" *ngIf="paginatedProducts.length !== 0">
   <button class="pagination-btn" (click)="previousPage()" [disabled]="currentPage === 1">Atrás</button>
   <span>Página {{currentPage}} de {{totalPages}}</span>
   <button class="pagination-btn" (click)="nextPage()" [disabled]="currentPage === totalPages">Siguiente</button>

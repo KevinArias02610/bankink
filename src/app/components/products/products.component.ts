@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Products } from 'src/app/interfaces/products.interface';
 import { ProductsService } from 'src/app/services/products.service';
 
@@ -16,21 +16,28 @@ export class ProductsComponent implements OnInit {
   public itemsPerPage: number = 6;
   public totalItems: number = 0;
   public products: any[] = [];
+  public products2: Products[] = [];
   public totalPages: number = 0;
-  isModalOpen: boolean = false;
-  selectedElement: any;
-
+  public isModalOpen: boolean = false;
+  public selectedElement: any;
+  public currentIndex = 0;
+  public slideInterval: any;
+  public filtro: string = '';
+  @Input() searchChanged: EventEmitter<string> = new EventEmitter<string>();
+  
   constructor(
     public _productsService: ProductsService
   ) { }
 
   ngOnInit(): void {
     this.getPaginatedProducts();
-    this.divideProductosEnPaginas()
+    this.divideProductosEnPaginas();
+    this.startSlideShow();
   }
 
   getPaginatedProducts(){
     this._productsService.getAllProducts().subscribe((resp: Products[]) =>{
+      this.products2 = resp
       this.paginatedProducts = resp;
       this.products = this.paginatedProducts;
       this.divideProductosEnPaginas();
@@ -69,4 +76,19 @@ export class ProductsComponent implements OnInit {
   closeModal() {
     this.isModalOpen = false;
   }
+  startSlideShow() {
+    this.slideInterval = setInterval(() => {
+      this.currentIndex = (this.currentIndex + 1) % this.products.length;
+    }, 3000);
+  }
+  onSearchChanged(searchTerm: any) {
+    this.filtro = searchTerm;
+    this.paginatedProducts = this.products.filter(item => {
+      return item.title.toLowerCase().includes(this.filtro.toLowerCase());
+    });
+    if(this.filtro == ''){
+      this.divideProductosEnPaginas()
+    }
+  }
+
 }

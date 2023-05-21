@@ -1,3 +1,3 @@
 <div class="component-container">
-  <input type="text" placeholder="Buscar producto">
+  <input type="text" [(ngModel)]="searchTerm" (input)="updateSearchTerm()" placeholder="Buscar producto">
 </div>
